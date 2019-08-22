@@ -5,17 +5,19 @@
 #include <X11/Xlib.h>
 #undef None //Needed to avoid build error with qurl.h
 #include <cstdint>
+#include <memory>
+#include <vector>
 
 class X11
 {
-    Display* img_dsp;
-    Display* gamma_dsp; //Need to use two diffent displays to avoid XIO fatal error
+    std::unique_ptr<Display,int(*)(Display*)> img_dsp = { nullptr,XCloseDisplay };
+    std::unique_ptr<Display,int(*)(Display*)> gamma_dsp = { nullptr,XCloseDisplay }; //Need to use two diffent displays to avoid XIO fatal error
     Screen* scr;
     Window root;
 
     int ramp_sz;
     int scr_num;
-    uint16_t* init_ramp;
+    std::vector<uint16_t> init_ramp;
 
     unsigned w, h;
 
