@@ -30,14 +30,12 @@ X11::X11()
     std::cout << "Initializing X11... ";
     #endif
 
+    //Seems to be the only thing needed to avoid a XIO fatal error so far.
+    //More testing needed.
     XInitThreads();
 
-    img_dsp = unique_rsc(XOpenDisplay, XCloseDisplay, nullptr);
-    gamma_dsp = unique_rsc(XOpenDisplay, XCloseDisplay, nullptr);
+    dsp = XOpenDisplay(nullptr);
 
-    auto dsp_raii = unique_rsc(XOpenDisplay, XCloseDisplay, nullptr);
-
-    Display* dsp = dsp_raii.get();
     scr = DefaultScreenOfDisplay(dsp);
     scr_num = DefaultScreen(dsp);
     root = DefaultRootWindow(dsp);
@@ -107,12 +105,11 @@ unsigned X11::getHeight() {
 
 void X11::getX11Snapshot(uint8_t* buf)
 {
-    XLockDisplay(img_dsp.get());
-    auto img = unique_rsc(XGetImage,[](XImage* img){XDestroyImage(img);},img_dsp.get(), root, 0, 0, w, h, AllPlanes, ZPixmap);
-    XUnlockDisplay(img_dsp.get());
+    //XLockDisplay(dsp);
+    XImage* img = XGetImage(dsp, root, 0, 0, w, h, AllPlanes, ZPixmap);
+    //XUnlockDisplay(dsp);
 
     size_t len = size_t(img->bytes_per_line * img->height);
-
     memcpy(buf, img->data, len);
 }
 
@@ -157,7 +154,7 @@ void X11::setXF86Brightness(int scrBr, int temp)
     uint16_t* ramp = ramp_v.data();
     fillRamp(ramp, scrBr, temp);
 
-    bool r = XF86VidModeSetGammaRamp(gamma_dsp.get(), 0, ramp_sz, &ramp[0*ramp_sz], &ramp[1*ramp_sz], &ramp[2*ramp_sz]);
+    bool r = XF86VidModeSetGammaRamp(dsp, 0, ramp_sz, &ramp[0*ramp_sz], &ramp[1*ramp_sz], &ramp[2*ramp_sz]);
 
 #ifdef dbg
     if(!r)
@@ -173,21 +170,25 @@ void X11::setInitialGamma(bool set_previous)
     std::cout << "Setting initial gamma\n";
 #endif
 
-    auto d = unique_rsc(XOpenDisplay,XCloseDisplay,nullptr);
+    Display* d = XOpenDisplay(nullptr);
 
     if(set_previous)
     {
         //Sets the gamma to how it was before the program started
-        XF86VidModeSetGammaRamp(d.get(), scr_num, ramp_sz, &init_ramp[0*ramp_sz], &init_ramp[1*ramp_sz], &init_ramp[2*ramp_sz]);
+        XF86VidModeSetGammaRamp(d, scr_num, ramp_sz, &init_ramp[0*ramp_sz], &init_ramp[1*ramp_sz], &init_ramp[2*ramp_sz]);
     }
     else
     {
         X11::setXF86Brightness(default_brightness, 1);
     }
+  
+    XCloseDisplay(d);
 }
 
 X11::~X11()
 {
+    if(dsp) XCloseDisplay(dsp);
+    delete[] init_ramp;
 }
 
 #endif

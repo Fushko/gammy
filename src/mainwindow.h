@@ -47,6 +47,8 @@ private:
     void mouseReleaseEvent(QMouseEvent*);
     bool windowPressed = false;
 
+    void closeEvent(QCloseEvent *);
+
     /*void mouseDoubleClickEvent(QMouseEvent*);
     **bool eventFilter(QObject *object, QEvent *event);*/
 };

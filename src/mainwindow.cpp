@@ -34,7 +34,15 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     {
         this->setWindowTitle("Gammy");
         this->setWindowIcon(appIcon);
-        this->setWindowFlags(Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint);
+
+    #ifdef _WIN32
+       this->setWindowFlags(Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint);
+    #else
+        this->setWindowFlags(Qt::Dialog);
+        ui->closeButton->hide();
+        ui->hideButton->hide();
+    #endif
+
         this->setWindowOpacity(0.95);
     }
 
@@ -147,7 +155,9 @@ void MainWindow::updateBrLabel() {
 void MainWindow::mousePressEvent(QMouseEvent* e)
 {
    mouse = e->pos();
+#ifdef _WIN32
    windowPressed = true;
+#endif
 }
 
 void MainWindow::mouseReleaseEvent(QMouseEvent* e)
@@ -175,6 +185,12 @@ void MainWindow::on_closeButton_clicked()
     updateConfig();
 
     MainWindow::quit = true;
+}
+
+void MainWindow::closeEvent(QCloseEvent* e)
+{
+    MainWindow::hide();
+    e->ignore();
 }
 
 //___________________________________________________________

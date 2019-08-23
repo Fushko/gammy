@@ -14,7 +14,7 @@ Adjusts pixel brightness based on screen contents. It dims the screen if it's to
 
 Unpack the [latest releases](https://github.com/Fushko/gammy/releases) .zip file.
 
-### Linux
+### Linux/X11
 
 #### Requirements
 

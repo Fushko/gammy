@@ -10,8 +10,8 @@
 
 class X11
 {
-    std::unique_ptr<Display,int(*)(Display*)> img_dsp = { nullptr,XCloseDisplay };
-    std::unique_ptr<Display,int(*)(Display*)> gamma_dsp = { nullptr,XCloseDisplay }; //Need to use two diffent displays to avoid XIO fatal error
+    Display* dsp;
+
     Screen* scr;
     Window root;
 
