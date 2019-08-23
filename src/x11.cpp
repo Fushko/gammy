@@ -188,7 +188,6 @@ void X11::setInitialGamma(bool set_previous)
 X11::~X11()
 {
     if(dsp) XCloseDisplay(dsp);
-    delete[] init_ramp;
 }
 
 #endif
