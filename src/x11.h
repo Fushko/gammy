@@ -5,7 +5,6 @@
 #include <X11/Xlib.h>
 #undef None //Needed to avoid build error with qurl.h
 #include <cstdint>
-#include <memory>
 #include <vector>
 
 class X11
