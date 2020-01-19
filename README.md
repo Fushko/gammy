@@ -28,10 +28,15 @@ The latest Windows release can be found [here](https://getgammy.com/downloads.ht
 - libgl1-mesa-dev 
 - qt5-default
 
+In a single command:
+```
+sudo apt install git build-essential libgl1-mesa-dev qt5-default
+```
+
 Additionally, the "qt5ct" plugin is recommended if you are running a DE/WM without Qt integration (e.g. GNOME):
 
 ```
-	sudo apt install qt5ct
+sudo apt install qt5ct
 ```
 
 #### Build and run
