@@ -26,7 +26,7 @@ The latest Windows release can be found [here](https://getgammy.com/downloads.ht
 
 On Debian-based distros:
 ```
-sudo apt install git build-essential libgl1-mesa-dev qt5-default
+sudo apt install git build-essential libgl1-mesa-dev qt5-default libxxf86vm-dev
 ```
 
 Additionally, the "qt5ct" plugin is recommended if you are running a DE/WM without Qt integration (e.g. GNOME):
