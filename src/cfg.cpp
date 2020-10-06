@@ -118,24 +118,16 @@ void write()
 #ifndef _WIN32
 std::string getConfigPath()
 {
-	constexpr const char *cfg_filename = "gammy";
-	constexpr const char *cfg_folder   = ".config";
+	constexpr const char *cfg_name = "gammy";
 
 	char buf[4096];
 
-	const char *home = getenv("XDG_CONFIG_HOME");
+	const char *home   = getenv("XDG_CONFIG_HOME");
+	const char *format = home ? "%s/%s" : "%s/.config/%s";
 
-	if (!home)
-	{
-		home = getenv("HOME");
+	if(!home) home = getenv("HOME");
 
-		if(!home) {
-			LOGE << "Unable to find HOME directory";
-			return "";
-		}
-	}
-
-	sprintf(buf, "%s/%s/%s", home, cfg_folder, cfg_filename);
+	sprintf(buf, format, home, cfg_name);
 
 	return std::string(buf);
 }
