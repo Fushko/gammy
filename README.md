@@ -1,4 +1,4 @@
-# Gammy
+﻿# Gammy
 is a GUI tool for adjusting pixel brightness/temperature automatically or manually.
 
 It can dim the screen if its content is too bright, or brighten it otherwise. This can help your eyes adjust when switching between dark and light windows, especially at night or in suboptimal lighting conditions.
@@ -45,6 +45,19 @@ make
 ```
 NOTE: If make fails with ```PlaceholderText is not a member of QPalette``` errors in ui_mainwindow.h, your Qt version is older than 5.12.
 Updating Qt is recommended, but as a workaround you can delete the offending lines in ui_mainwindow.h, then run make again.
+
+#### Gentoo
+
+On Gentoo-based distros:
+```bash
+# Gammy is included in GURU Gentoo overlay, so let's emerge the tool to enable the overlay
+sudo emerge -av app-eselect/eselect-repository
+# Setup the GURU overlay
+sudo eselect repository enable guru
+sudo emaint sync -r guru
+# Finally emerge gammy
+sudo emerge -av --autounmask x11-misc/gammy
+```
 
 ## Usage
 Gammy starts minimized in the system tray (or maximized if the tray is absent). Click on the icon to open the settings window. 
