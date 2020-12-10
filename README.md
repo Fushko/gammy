@@ -59,6 +59,25 @@ sudo emaint sync -r guru
 sudo emerge -av --autounmask x11-misc/gammy
 ```
 
+## FreeBSD
+
+On FreeBSD, gammy can either be installed from `ports`:
+
+```sh
+% cd /usr/ports
+# update your ports branch to the latest, with your preferred method
+% cd accessibility/gammy
+% sudo make install-missing-packages
+% sudo make package
+% pkg install ./work/pkg/gammy*
+```
+
+or from `pkg`, as soon as [accessibility/gammy](https://www.freshports.org/accessibility/gammy) hits your (quarterly) repo:
+
+```
+% sudo pkg install -y gammy
+```
+
 ## Usage
 Gammy starts minimized in the system tray (or maximized if the tray is absent). Click on the icon to open the settings window. 
 
