@@ -47,7 +47,9 @@ sudo apt install qt5ct
 ### Packages
 
 #### Arch
-An AUR package is provided [here.](https://aur.archlinux.org/packages/gammy-git/)
+AUR packages are available:
+- Stable: [`gammy`](https://aur.archlinux.org/packages/gammy/)
+- Development: [`gammy-git`](https://aur.archlinux.org/packages/gammy-git/)
 
 #### Gentoo
 
