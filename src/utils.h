@@ -8,6 +8,7 @@
 
 #include <array>
 #include <vector>
+#include <cstddef>
 #include "stdint.h"
 
 int    calcBrightness(uint8_t *buf, uint64_t buf_sz, int bytes_per_pixel, int stride);
