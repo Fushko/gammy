@@ -6,10 +6,8 @@
 #ifndef UTILS_H
 #define UTILS_H
 
-#include <array>
-#include <vector>
 #include <cstddef>
-#include "stdint.h"
+#include <cstdint>
 
 int    calcBrightness(uint8_t *buf, uint64_t buf_sz, int bytes_per_pixel, int stride);
 double lerp(double x, double a, double b);
